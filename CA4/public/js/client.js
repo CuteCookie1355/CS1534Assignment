@@ -4,22 +4,35 @@ const socket = io();
 
 const inboxPeople = document.querySelector(".inbox__people");
 
-
-let userName = "";
+let userName = '';
 let id;
 const newUserConnected = function (data) {
     
-
     //give the user a random unique id
     id = Math.floor(Math.random() * 1000000);
-    userName = 'user-' +id;
-    console.log(userName);   
+    userName = prompt("Please enter your name", "Username");
+    if (userName == null || userName == "") {
+      console.log("User canceled name prompt");
+      userName = 'user-' + id
+    } 
+    console.log(userName + " joined chat");   
     
 
     //emit an event with the user id
     socket.emit("new user", userName);
     //call
     addToUsersBox(userName);
+
+
+      //Join MSG
+    const joinMsg = userName + " has joined" ;
+
+    socket.emit("chat message", {
+      message: joinMsg,
+      nick: "System",
+    });
+
+  //Join MSG
 };
 
 const addToUsersBox = function (userName) {
@@ -47,7 +60,9 @@ newUserConnected();
 
 //when a new user event is detected
 socket.on("new user", function (data) {
-  console.log("New User")
+
+
+
   data.map(function (user) {
           return addToUsersBox(user);
       });
@@ -63,6 +78,35 @@ socket.on("user disconnected", function (userName) {
 const inputField = document.querySelector(".message_form__input");
 const messageForm = document.querySelector(".message_form");
 const messageBox = document.querySelector(".messages__history");
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+let typing = false;
+let timeout = undefined;
+
+function timeoutFunction(){
+  typing = false;
+  socket.emit();
+}
+
+function keyPressed(){
+  if(typing == false) {
+    typing = true ;
+    console.log("TYPING") ;
+    socket.emit('is typing', );
+    
+    timeout = setTimeout(timeoutFunction, 5000);
+  } else {
+    clearTimeout(timeout);
+    timeout = setTimeout(timeoutFunction, 5000);
+  }
+
+}
+while () {
+  inputField.addEventListener(onkeydown, keyPressed());
+
+}
+
 
 const addNewMessage = ({ user, message }) => {
   const time = new Date();

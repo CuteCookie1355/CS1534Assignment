@@ -24,7 +24,11 @@ io.on("connection", function (socket) {
   socket.on("new user", function (data) {
     socket.userId = data;
     activeUsers.add(data);
+
     //... is the the spread operator, adds to the set while retaining what was in there already
+
+    
+
     io.emit("new user", [...activeUsers]);
   });
 
@@ -32,9 +36,13 @@ io.on("connection", function (socket) {
       activeUsers.delete(socket.userId);
       io.emit("user disconnected", socket.userId);
     });
-
     socket.on("chat message", function (data) {
       io.emit("chat message", data);
   });
 
+});
+
+socket.on('is typing', function(socket){
+ socket.emit('typing', {nickname: socket.userId});
+ console.log(socket.userId+" user is typing");
 });
