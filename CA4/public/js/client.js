@@ -13,7 +13,7 @@ const newUserConnected = function (data) {
     //give the user a random unique id
     id = Math.floor(Math.random() * 1000000);
     userName = 'user-' +id;
-    //console.log(typeof(userName));   
+    console.log(userName);   
     
 
     //emit an event with the user id
@@ -47,6 +47,7 @@ newUserConnected();
 
 //when a new user event is detected
 socket.on("new user", function (data) {
+  console.log("New User")
   data.map(function (user) {
           return addToUsersBox(user);
       });
@@ -55,6 +56,7 @@ socket.on("new user", function (data) {
 //when a user leaves
 socket.on("user disconnected", function (userName) {
   document.querySelector(`.${userName}-userlist`).remove();
+  console.log("User leaving")
 });
 
 
@@ -92,6 +94,8 @@ const addNewMessage = ({ user, message }) => {
 };
 
 messageForm.addEventListener("submit", (e) => {
+
+  //doesnt refresh after each msg send
   e.preventDefault();
   if (!inputField.value) {
     return;
@@ -101,7 +105,7 @@ messageForm.addEventListener("submit", (e) => {
     message: inputField.value,
     nick: userName,
   });
-
+    //clears msg box after sending
   inputField.value = "";
 });
 
