@@ -40,9 +40,12 @@ io.on("connection", function (socket) {
       io.emit("chat message", data);
   });
 
+  socket.on("is typing", function(){
+    io.emit("typing", socket.userId);
+    });
+  
+  socket.on("stopped typing", function() {
+    io.emit("not typing", socket.userId);
+  })
 });
 
-socket.on('is typing', function(socket){
- socket.emit('typing', {nickname: socket.userId});
- console.log(socket.userId+" user is typing");
-});

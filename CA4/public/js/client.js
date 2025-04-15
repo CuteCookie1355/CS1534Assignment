@@ -10,7 +10,7 @@ const newUserConnected = function (data) {
     
     //give the user a random unique id
     id = Math.floor(Math.random() * 1000000);
-    userName = prompt("Please enter your name", "Username");
+    userName = prompt("Please enter your name", "Username").replace(/\s/g, "");
     if (userName == null || userName == "") {
       console.log("User canceled name prompt");
       userName = 'user-' + id
@@ -78,34 +78,62 @@ socket.on("user disconnected", function (userName) {
 const inputField = document.querySelector(".message_form__input");
 const messageForm = document.querySelector(".message_form");
 const messageBox = document.querySelector(".messages__history");
-
+const typingPrompt = document.querySelector(".typing_prompt");
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-let typing = false;
-let timeout = undefined;
 
-function timeoutFunction(){
-  typing = false;
-  socket.emit();
-}
+//toggles the typing prompt on
+const dispTypingPrompt = (user) => {
 
-function keyPressed(){
-  if(typing == false) {
-    typing = true ;
-    console.log("TYPING") ;
-    socket.emit('is typing', );
-    
-    timeout = setTimeout(timeoutFunction, 5000);
-  } else {
-    clearTimeout(timeout);
-    timeout = setTimeout(timeoutFunction, 5000);
+  const amTyping = "You are typing";
+  const otherTyping = user +" is typing"
+
+  if (user == userName) {
+    typingPrompt.innerHTML = amTyping;
+
+  }else {
+    typingPrompt.innerHTML = otherTyping;
   }
 
+//toggles the typing prompt off
 }
-while () {
-  inputField.addEventListener(onkeydown, keyPressed());
+const dispNotTypingPrompt = () => {
+  typingPrompt.innerHTML = ""
 
 }
+
+//initialises ityping, resets after 2 secs
+let istyping = 0;
+
+//when the input box is changed
+inputField.oninput = function(istyping){
+  //brodcasts to server
+  socket.emit("is typing");
+  if (istyping = 0) {
+    //false to true
+    istyping = 1;
+
+  } else {
+    setTimeout(function() {
+      //brodcasts to server
+      socket.emit("stopped typing");
+      //true to false
+      istyping = 0
+    }, 2000);
+  }
+
+  
+};
+// when recieves brodcast from server
+socket.on("not typing", function(data) {
+  dispNotTypingPrompt();
+});
+
+//when recieves  brodcast from server
+socket.on("typing", function(data) {
+  dispTypingPrompt(data);
+});
+
 
 
 const addNewMessage = ({ user, message }) => {
