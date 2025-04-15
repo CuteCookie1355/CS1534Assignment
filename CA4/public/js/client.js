@@ -85,8 +85,8 @@ const typingPrompt = document.querySelector(".typing_prompt");
 //toggles the typing prompt on
 const dispTypingPrompt = (user) => {
 
-  const amTyping = "You are typing";
-  const otherTyping = user +" is typing"
+  const amTyping = "You are typing...";
+  const otherTyping = user +" is typing..."
 
   if (user == userName) {
     typingPrompt.innerHTML = amTyping;
