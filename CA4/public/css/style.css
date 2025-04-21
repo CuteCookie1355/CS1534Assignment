@@ -6,10 +6,34 @@
   body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #fbf8fb;
+  background-color: #f4f0ec;
+  border: black;
+  border-radius: 2px;
   /*  peachpuff; 
+  fbf8fb
   */
 
+  }
+  .hobbyLHS {
+    background-color: #fbf8fb;;
+  }
+  .hobbyRHS {
+    background-color: aliceblue;
+    
+    
+  }
+
+  .fitcontent {
+    width: fit-content;
+    max-width: auto;
+    font
+  }
+
+  img {
+    width: fit-content;
+    height: auto;
+    border-radius: 50%;
+    border: 5px, solid, #212529;
   }
 
   /* CODE CODE 62EC4D*/
@@ -93,20 +117,16 @@
 
   .center {
   
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0, 0.7); /* Black w/opacity/see-through */
-  color: white;
-  font-weight: bold;
+  background-color: black;
+  background-color: rgba(0,0,0, 0.7); /* black with 70% opacity */
   border: 3px solid #f1f1f1;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 2;
   width: 80%;
-  text-align: center;
+  text-align: left;
   font-size: 20px;
-  
   }
 
 /* 
