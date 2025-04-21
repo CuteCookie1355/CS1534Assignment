@@ -1,0 +1,8 @@
+a94b824 Final touch up added README file
+b5611e1 Added funky code style
+67fdae3 Finished Chat func
+3492237 More chat js changing
+22fe57a Worked on chat func
+fc4b3aa Added further detail to all pages, editied chat page style
+055cee1 Filetree updates
+70b77c6 Added demo chat func and made files

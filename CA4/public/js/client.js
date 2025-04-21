@@ -72,6 +72,16 @@ socket.on("new user", function (data) {
 socket.on("user disconnected", function (userName) {
   document.querySelector(`.${userName}-userlist`).remove();
   console.log("User leaving")
+
+
+  const disconnectMsg = userName + " has left" ;
+
+  socket.emit("chat message", {
+    message: disconnectMsg,
+    nick: "System",
+  });
+
+  
 });
 
 
